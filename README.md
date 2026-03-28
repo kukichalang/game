@@ -127,6 +127,10 @@ This package is a separate Go module (`github.com/kukichalang/game`) that wraps 
 
 The generated `game.go` has a `//go:build js` constraint. Ebitengine's native backends require platform-specific headers (X11 on Linux) which aren't needed for WASM games. The Kukicha compiler automatically adds this constraint to both the game package and any user code that imports `stdlib/game`, so `go build ./...` and `go test ./...` skip game code on native platforms. Always build with `kukicha build --wasm`.
 
+## Acknowledgements
+
+This package is built on [Ebitengine](https://ebitengine.org/) by Hajime Hoshi — a production-grade 2D game engine for Go. Ebitengine is licensed under Apache 2.0.
+
 ## License
 
 MIT

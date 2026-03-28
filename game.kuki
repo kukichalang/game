@@ -1,5 +1,8 @@
 # Kukicha Standard Library - Game (Ebitengine wrapper)
 # A beginner-friendly 2D game library for browser-based tutorials.
+#
+# Built on Ebitengine (https://ebitengine.org/) by Hajime Hoshi.
+# Ebitengine is licensed under Apache 2.0.
 
 petiole game
 
