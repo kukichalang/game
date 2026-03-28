@@ -123,6 +123,10 @@ The Kukicha repo includes an 8-lesson game tutorial series that builds up to a f
 
 This package is a separate Go module (`github.com/kukichalang/game`) that wraps Ebitengine. The Kukicha compiler maps `import "stdlib/game"` to this module automatically. A registry stub in the main Kukicha repo (`stdlib/game/game.kuki`) provides type information for compile-time checks.
 
+### WASM-only build constraint
+
+The generated `game.go` has a `//go:build js` constraint. Ebitengine's native backends require platform-specific headers (X11 on Linux) which aren't needed for WASM games. The Kukicha compiler automatically adds this constraint to both the game package and any user code that imports `stdlib/game`, so `go build ./...` and `go test ./...` skip game code on native platforms. Always build with `kukicha build --wasm`.
+
 ## License
 
 MIT
