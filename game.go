@@ -15,7 +15,7 @@ import (
 	"strings"
 )
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:18
+//line /var/home/tluker/repos/go/game/game.kuki:21
 type Color struct {
 	R int
 	G int
@@ -23,19 +23,19 @@ type Color struct {
 	A int
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:25
+//line /var/home/tluker/repos/go/game/game.kuki:28
 type Position struct {
 	X float64
 	Y float64
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:30
+//line /var/home/tluker/repos/go/game/game.kuki:33
 type Size struct {
 	Width  float64
 	Height float64
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:35
+//line /var/home/tluker/repos/go/game/game.kuki:38
 type Rect struct {
 	X      float64
 	Y      float64
@@ -43,19 +43,19 @@ type Rect struct {
 	Height float64
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:42
+//line /var/home/tluker/repos/go/game/game.kuki:45
 type Circle struct {
 	X      float64
 	Y      float64
 	Radius float64
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:48
+//line /var/home/tluker/repos/go/game/game.kuki:51
 type Screen struct {
 	img *ebiten.Image
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:52
+//line /var/home/tluker/repos/go/game/game.kuki:55
 type App struct {
 	title    string
 	width    int
@@ -65,263 +65,286 @@ type App struct {
 	drawFn   func(Screen)
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:63
+//line /var/home/tluker/repos/go/game/game.kuki:66
 var globalFrameCount int64
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:68
+//line /var/home/tluker/repos/go/game/game.kuki:71
 type gameAdapter struct {
 	app App
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:71
+//line /var/home/tluker/repos/go/game/game.kuki:74
 func (g *gameAdapter) Update() error {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:72
+//line /var/home/tluker/repos/go/game/game.kuki:75
 	globalFrameCount = (globalFrameCount + 1)
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:73
+//line /var/home/tluker/repos/go/game/game.kuki:76
 	if g.app.updateFn != nil {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:74
+//line /var/home/tluker/repos/go/game/game.kuki:77
 		g.app.updateFn()
 	}
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:75
+//line /var/home/tluker/repos/go/game/game.kuki:78
 	return nil
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:77
+//line /var/home/tluker/repos/go/game/game.kuki:80
 func (g *gameAdapter) Draw(screen *ebiten.Image) {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:78
+//line /var/home/tluker/repos/go/game/game.kuki:81
 	if g.app.drawFn != nil {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:79
+//line /var/home/tluker/repos/go/game/game.kuki:82
 		g.app.drawFn(Screen{img: screen})
 	}
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:81
+//line /var/home/tluker/repos/go/game/game.kuki:84
 func (g *gameAdapter) Layout(outsideWidth int, outsideHeight int) (int, int) {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:82
+//line /var/home/tluker/repos/go/game/game.kuki:85
 	return g.app.width, g.app.height
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:86
+//line /var/home/tluker/repos/go/game/game.kuki:89
 var Red Color = Color{R: 255, G: 0, B: 0, A: 255}
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:87
+//line /var/home/tluker/repos/go/game/game.kuki:90
 var Green Color = Color{R: 0, G: 200, B: 0, A: 255}
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:88
+//line /var/home/tluker/repos/go/game/game.kuki:91
 var Blue Color = Color{R: 0, G: 0, B: 255, A: 255}
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:89
+//line /var/home/tluker/repos/go/game/game.kuki:92
 var White Color = Color{R: 255, G: 255, B: 255, A: 255}
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:90
+//line /var/home/tluker/repos/go/game/game.kuki:93
 var Black Color = Color{R: 0, G: 0, B: 0, A: 255}
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:91
+//line /var/home/tluker/repos/go/game/game.kuki:94
 var Yellow Color = Color{R: 255, G: 255, B: 0, A: 255}
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:92
+//line /var/home/tluker/repos/go/game/game.kuki:95
 var Orange Color = Color{R: 255, G: 165, B: 0, A: 255}
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:93
+//line /var/home/tluker/repos/go/game/game.kuki:96
 var Purple Color = Color{R: 128, G: 0, B: 128, A: 255}
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:94
+//line /var/home/tluker/repos/go/game/game.kuki:97
 var Gray Color = Color{R: 128, G: 128, B: 128, A: 255}
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:98
+//line /var/home/tluker/repos/go/game/game.kuki:101
 var KeyLeft ebiten.Key = ebiten.KeyArrowLeft
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:99
+//line /var/home/tluker/repos/go/game/game.kuki:102
 var KeyRight ebiten.Key = ebiten.KeyArrowRight
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:100
+//line /var/home/tluker/repos/go/game/game.kuki:103
 var KeyUp ebiten.Key = ebiten.KeyArrowUp
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:101
+//line /var/home/tluker/repos/go/game/game.kuki:104
 var KeyDown ebiten.Key = ebiten.KeyArrowDown
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:102
+//line /var/home/tluker/repos/go/game/game.kuki:105
 var KeySpace ebiten.Key = ebiten.KeySpace
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:103
+//line /var/home/tluker/repos/go/game/game.kuki:106
 var KeyEnter ebiten.Key = ebiten.KeyEnter
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:104
+//line /var/home/tluker/repos/go/game/game.kuki:107
 var KeyEscape ebiten.Key = ebiten.KeyEscape
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:109
+//line /var/home/tluker/repos/go/game/game.kuki:112
 func Window(title string, width int, height int) App {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:110
+//line /var/home/tluker/repos/go/game/game.kuki:113
 	return App{title: title, width: width, height: height}
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:113
+//line /var/home/tluker/repos/go/game/game.kuki:116
 func OnSetup(app App, fn func()) App {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:114
+//line /var/home/tluker/repos/go/game/game.kuki:117
 	app.setupFn = fn
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:115
+//line /var/home/tluker/repos/go/game/game.kuki:118
 	return app
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:118
+//line /var/home/tluker/repos/go/game/game.kuki:121
 func OnUpdate(app App, fn func()) App {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:119
+//line /var/home/tluker/repos/go/game/game.kuki:122
 	app.updateFn = fn
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:120
+//line /var/home/tluker/repos/go/game/game.kuki:123
 	return app
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:123
+//line /var/home/tluker/repos/go/game/game.kuki:126
 func OnDraw(app App, fn func(Screen)) App {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:124
+//line /var/home/tluker/repos/go/game/game.kuki:127
 	app.drawFn = fn
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:125
+//line /var/home/tluker/repos/go/game/game.kuki:128
 	return app
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:128
+//line /var/home/tluker/repos/go/game/game.kuki:131
 func Run(app App) error {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:129
+//line /var/home/tluker/repos/go/game/game.kuki:132
 	ebiten.SetWindowTitle(app.title)
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:130
+//line /var/home/tluker/repos/go/game/game.kuki:133
 	ebiten.SetWindowSize(app.width, app.height)
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:131
+//line /var/home/tluker/repos/go/game/game.kuki:134
 	if app.setupFn != nil {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:132
+//line /var/home/tluker/repos/go/game/game.kuki:135
 		app.setupFn()
 	}
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:133
+//line /var/home/tluker/repos/go/game/game.kuki:136
 	adapter := &gameAdapter{app: app}
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:134
+//line /var/home/tluker/repos/go/game/game.kuki:137
 	return ebiten.RunGame(adapter)
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:139
+//line /var/home/tluker/repos/go/game/game.kuki:142
 func Clear(screen Screen, c Color) {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:140
+//line /var/home/tluker/repos/go/game/game.kuki:143
 	screen.img.Fill(toColor(c))
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:143
+//line /var/home/tluker/repos/go/game/game.kuki:146
 func DrawRect(screen Screen, x float64, y float64, w float64, h float64, c Color) {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:144
+//line /var/home/tluker/repos/go/game/game.kuki:147
 	vector.DrawFilledRect(screen.img, float32(x), float32(y), float32(w), float32(h), toColor(c), true)
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:147
+//line /var/home/tluker/repos/go/game/game.kuki:150
 func DrawCircle(screen Screen, x float64, y float64, radius float64, c Color) {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:148
+//line /var/home/tluker/repos/go/game/game.kuki:151
 	vector.DrawFilledCircle(screen.img, float32(x), float32(y), float32(radius), toColor(c), true)
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:151
+//line /var/home/tluker/repos/go/game/game.kuki:154
 func DrawLine(screen Screen, x1 float64, y1 float64, x2 float64, y2 float64, c Color) {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:152
+//line /var/home/tluker/repos/go/game/game.kuki:155
 	vector.StrokeLine(screen.img, float32(x1), float32(y1), float32(x2), float32(y2), 2, toColor(c), true)
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:155
+//line /var/home/tluker/repos/go/game/game.kuki:158
 func DrawText(screen Screen, msg string, x int, y int, c Color) {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:156
+//line /var/home/tluker/repos/go/game/game.kuki:159
 	lines := strings.Split(msg, "\n")
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:157
+//line /var/home/tluker/repos/go/game/game.kuki:160
 	for i, line := range lines {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:158
+//line /var/home/tluker/repos/go/game/game.kuki:161
 		ebitenutil.DebugPrintAt(screen.img, line, x, (y + (i * 16)))
 	}
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:159
+//line /var/home/tluker/repos/go/game/game.kuki:162
 	_ = c
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:164
+//line /var/home/tluker/repos/go/game/game.kuki:167
 func IsKeyDown(key ebiten.Key) bool {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:165
+//line /var/home/tluker/repos/go/game/game.kuki:168
 	return ebiten.IsKeyPressed(key)
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:168
+//line /var/home/tluker/repos/go/game/game.kuki:171
 func IsKeyPressed(key ebiten.Key) bool {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:169
+//line /var/home/tluker/repos/go/game/game.kuki:172
 	return inpututil.IsKeyJustPressed(key)
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:172
+//line /var/home/tluker/repos/go/game/game.kuki:175
 func MousePosition() (float64, float64) {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:173
+//line /var/home/tluker/repos/go/game/game.kuki:176
 	x, y := ebiten.CursorPosition()
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:174
+//line /var/home/tluker/repos/go/game/game.kuki:177
 	return float64(x), float64(y)
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:177
+//line /var/home/tluker/repos/go/game/game.kuki:180
 func MouseClicked() bool {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:178
+//line /var/home/tluker/repos/go/game/game.kuki:181
 	return inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft)
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:183
+//line /var/home/tluker/repos/go/game/game.kuki:184
+func TouchJustClicked() bool {
+//line /var/home/tluker/repos/go/game/game.kuki:185
+	ids := inpututil.AppendJustPressedTouchIDs(nil)
+//line /var/home/tluker/repos/go/game/game.kuki:186
+	return (len(ids) > 0)
+}
+
+//line /var/home/tluker/repos/go/game/game.kuki:189
+func TouchPosition() (float64, float64, bool) {
+//line /var/home/tluker/repos/go/game/game.kuki:190
+	ids := ebiten.AppendTouchIDs(nil)
+//line /var/home/tluker/repos/go/game/game.kuki:191
+	if len(ids) > 0 {
+//line /var/home/tluker/repos/go/game/game.kuki:192
+		x, y := ebiten.TouchPosition(ids[0])
+//line /var/home/tluker/repos/go/game/game.kuki:193
+		return float64(x), float64(y), true
+	}
+//line /var/home/tluker/repos/go/game/game.kuki:194
+	return 0.0, 0.0, false
+}
+
+//line /var/home/tluker/repos/go/game/game.kuki:199
 func Overlaps(a Rect, b Rect) bool {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:184
+//line /var/home/tluker/repos/go/game/game.kuki:200
 	return ((((a.X < (b.X + b.Width)) && ((a.X + a.Width) > b.X)) && (a.Y < (b.Y + b.Height))) && ((a.Y + a.Height) > b.Y))
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:187
+//line /var/home/tluker/repos/go/game/game.kuki:203
 func OverlapsCircle(a Circle, b Circle) bool {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:188
+//line /var/home/tluker/repos/go/game/game.kuki:204
 	dx := (a.X - b.X)
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:189
+//line /var/home/tluker/repos/go/game/game.kuki:205
 	dy := (a.Y - b.Y)
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:190
+//line /var/home/tluker/repos/go/game/game.kuki:206
 	dist := math.Sqrt(((dx * dx) + (dy * dy)))
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:191
+//line /var/home/tluker/repos/go/game/game.kuki:207
 	return (dist < (a.Radius + b.Radius))
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:194
+//line /var/home/tluker/repos/go/game/game.kuki:210
 func CircleOverlapsRect(c Circle, r Rect) bool {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:195
+//line /var/home/tluker/repos/go/game/game.kuki:211
 	closestX := math.Max(r.X, math.Min(c.X, (r.X+r.Width)))
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:196
+//line /var/home/tluker/repos/go/game/game.kuki:212
 	closestY := math.Max(r.Y, math.Min(c.Y, (r.Y+r.Height)))
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:197
+//line /var/home/tluker/repos/go/game/game.kuki:213
 	dx := (c.X - closestX)
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:198
+//line /var/home/tluker/repos/go/game/game.kuki:214
 	dy := (c.Y - closestY)
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:199
+//line /var/home/tluker/repos/go/game/game.kuki:215
 	return (((dx * dx) + (dy * dy)) < (c.Radius * c.Radius))
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:204
+//line /var/home/tluker/repos/go/game/game.kuki:220
 func MakeColor(r int, g int, b int, a int) Color {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:205
+//line /var/home/tluker/repos/go/game/game.kuki:221
 	return Color{R: r, G: g, B: b, A: a}
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:208
+//line /var/home/tluker/repos/go/game/game.kuki:224
 func Random(min int, max int) int {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:209
+//line /var/home/tluker/repos/go/game/game.kuki:225
 	if min >= max {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:210
+//line /var/home/tluker/repos/go/game/game.kuki:226
 		return min
 	}
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:211
+//line /var/home/tluker/repos/go/game/game.kuki:227
 	return (min + rand.Intn((max - min)))
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:214
+//line /var/home/tluker/repos/go/game/game.kuki:230
 func RandomFloat(min float64, max float64) float64 {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:215
+//line /var/home/tluker/repos/go/game/game.kuki:231
 	return (min + (rand.Float64() * (max - min)))
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:218
+//line /var/home/tluker/repos/go/game/game.kuki:234
 func FrameCount() int64 {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:219
+//line /var/home/tluker/repos/go/game/game.kuki:235
 	return globalFrameCount
 }
 
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:224
+//line /var/home/tluker/repos/go/game/game.kuki:240
 func toColor(c Color) color.RGBA {
-//line /var/home/tluker/repos/go/kukicha/stdlib/game/game.kuki:225
+//line /var/home/tluker/repos/go/game/game.kuki:241
 	return color.RGBA{R: uint8(c.R), G: uint8(c.G), B: uint8(c.B), A: uint8(c.A)}
 }
